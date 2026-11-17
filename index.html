@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petualangan Seru Mengenal Bangun Datar</title>
+<style>
+:root{--navy:#29477f;--blue:#dff7ff;--sky:#bceeff;--yellow:#ffe98a;--orange:#ffb43f;--purple:#7954d8;--green:#a9ead1;--ink:#263b63;--white:#fff}
+*{box-sizing:border-box} body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;background:linear-gradient(135deg,#dff7ff,#f2eaff);color:var(--ink);min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}
+.app{max-width:1100px;margin:20px auto;padding:16px}
+.top{display:flex;align-items:center;gap:14px;background:#ffffffc9;border-radius:18px;padding:12px 18px;box-shadow:0 5px 18px #41638a18}
+.brand{font-weight:900;letter-spacing:.5px;color:var(--navy)}.progress{height:10px;background:#e8eef8;border-radius:20px;flex:1;overflow:hidden}.bar{height:100%;width:4%;background:var(--orange);border-radius:20px;transition:.3s}
+.counter{font-weight:800;color:var(--purple);white-space:nowrap}
+.stage{margin-top:16px;background:linear-gradient(145deg,#c8f1ff,#f8fff4);border:10px solid #d2f2ff;border-radius:30px;min-height:650px;padding:clamp(18px,4vw,42px);position:relative;overflow:hidden;box-shadow:0 12px 30px #476b9020}
+.stage:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:#fff4a7;right:-100px;top:-110px;opacity:.8}.stage:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:#b8f0d8;left:-110px;bottom:-120px;opacity:.8}
+.content{position:relative;z-index:1;min-height:560px;display:flex;flex-direction:column}
+.kicker{display:inline-block;background:#fff0a8;color:#9b6500;padding:7px 14px;border-radius:30px;font-size:.8rem;font-weight:900;letter-spacing:.6px;width:max-content}
+h1{font-size:clamp(2.1rem,5vw,3.8rem);line-height:1.08;margin:14px 0;color:var(--navy);max-width:700px}
+h2{font-size:clamp(1.7rem,4vw,2.5rem);color:var(--navy);margin:12px 0}
+h3{color:var(--navy);margin:8px 0}.subtitle{font-size:1.15rem;color:#617697;font-weight:700}
+p,li{font-size:1.06rem;line-height:1.6}.lead{font-size:1.2rem;font-weight:700}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:25px;align-items:center;flex:1}
+.kids{display:flex;justify-content:center;gap:22px;align-items:end;min-height:250px}
+.kid{width:115px;text-align:center}.head{width:74px;height:78px;border-radius:48% 48% 45% 45%;background:#f5b77e;margin:auto;position:relative;border-top:16px solid #343456}
+.body{width:65px;height:105px;margin:-3px auto 0;border-radius:18px 18px 8px 8px;background:#ffb43f}.kid:nth-child(2) .body{background:#9f83e8}.legs{display:flex;justify-content:center;gap:15px}.legs i{width:13px;height:40px;background:#29477f;border-radius:10px}
+.shape-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:15px}.shape-chip{background:#fff;border:2px solid #d8e8ff;border-radius:16px;padding:12px;text-align:center;min-width:100px;box-shadow:0 4px 10px #45617a10}
+.shape{width:90px;height:90px;margin:8px auto;display:grid;place-items:center}.shape svg{width:100%;height:100%;overflow:visible}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:18px 0}
+.card{background:#ffffffdc;border:2px solid #e2efff;border-radius:20px;padding:18px;box-shadow:0 5px 14px #3f5b7c12}
+.card .shape{width:100px;height:100px}
+.btn{background:var(--orange);color:#64420a;font-weight:900;padding:13px 22px;border-radius:14px;box-shadow:0 4px 0 #d58a20;transition:.15s}.btn:hover{transform:translateY(-2px)}.btn.secondary{background:#fff;color:var(--navy);box-shadow:0 4px 0 #cfddf2;border:1px solid #dce8fb}.btn.purple{background:var(--purple);color:#fff;box-shadow:0 4px 0 #5536ac}.btn.small{padding:9px 15px;font-size:.92rem}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:22px;align-items:center}.actions .spacer{flex:1}
+.callout{background:#fff;border-radius:18px;padding:17px 20px;box-shadow:0 5px 12px #45617a12;margin:12px 0}
+.list{padding-left:24px}.fact{background:#fff8d6;border-left:6px solid var(--orange);padding:12px 16px;border-radius:12px;margin:12px 0;font-weight:700}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}
+.option{padding:15px;border:2px solid #d8e7ff;background:#fff;border-radius:15px;color:var(--ink);font-weight:800;text-align:left}.option:hover{border-color:var(--purple)}.option.selected{border-color:var(--purple);background:#f1eaff}.option.correct{border-color:#35a77b;background:#e5fff3}.option.wrong{border-color:#df6b6b;background:#fff0f0}
+.feedback{font-weight:800;padding:12px;border-radius:12px;margin:10px 0;background:#fff}.feedback.good{color:#16734d;background:#e3fff1}.feedback.bad{color:#a13b3b;background:#fff0f0}
+.match-item{padding:12px;background:#fff;border:2px solid #dce9ff;border-radius:13px;cursor:pointer;font-weight:800}.match-item.active{border-color:var(--purple);background:#f1eaff}.match-item.done{background:#e4fff2;border-color:#5cbd91;cursor:default}
+.match-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+input[type=text]{padding:12px;border:2px solid #d9e7fa;border-radius:12px;font:inherit;width:100%;max-width:300px}
+footer{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 4px;color:#637797;font-size:.9rem}
+@media(max-width:700px){.app{margin:0;padding:8px}.stage{padding:18px;min-height:620px;border-width:6px}.hero{grid-template-columns:1fr}.kids{min-height:170px}.kid{transform:scale(.8)}.options{grid-template-columns:1fr}.top{gap:8px;padding:10px}.brand{font-size:.8rem}.counter{font-size:.8rem}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.shape-chip{min-width:85px}.shape-chip .shape{width:65px;height:65px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="brand">✦ DETEKTIF GEOMETRI</div><div class="progress"><div class="bar" id="bar"></div></div><div class="counter" id="counter">Layar 1 / 25</div></div>
+  <main class="stage"><div class="content" id="content"></div></main>
+  <footer><span>🌈 Belajar sambil bertualang!</span><span id="foot">Matematika Kelas 2 SD</span></footer>
+</div>
+<script>
+const shapes=[
+ {name:"Segitiga",sides:3,desc:"Memiliki 3 sisi dan 3 titik sudut.",kind:"triangle",color:"#ffd34f",example:"rambu lalu lintas"},
+ {name:"Persegi",sides:4,desc:"Memiliki 4 sisi sama panjang dan 4 titik sudut.",kind:"square",color:"#f27eaa",example:"ubin lantai"},
+ {name:"Persegi panjang",sides:4,desc:"Memiliki 4 sisi. Dua pasang sisi yang berhadapan sama panjang.",kind:"rect",color:"#69c9e8",example:"pintu"},
+ {name:"Lingkaran",sides:0,desc:"Berbentuk bundar, tidak memiliki sisi lurus dan titik sudut.",kind:"circle",color:"#ff9868",example:"roda"},
+ {name:"Segilima",sides:5,desc:"Memiliki 5 sisi dan 5 titik sudut.",kind:"pentagon",color:"#9b83e8",example:"bentuk rumah sederhana"},
+ {name:"Segienam",sides:6,desc:"Memiliki 6 sisi dan 6 titik sudut.",kind:"hexagon",color:"#65c99a",example:"sarang lebah"}
+];
+function svgShape(kind,color){let s="";if(kind==="triangle")s='<polygon points="50,7 94,88 6,88"';if(kind==="square")s='<rect x="12" y="12" width="76" height="76" rx="3"';if(kind==="rect")s='<rect x="5" y="23" width="90" height="54" rx="3"';if(kind==="circle")s='<circle cx="50" cy="50" r="42"';if(kind==="pentagon")s='<polygon points="50,5 96,39 78,94 22,94 4,39"';if(kind==="hexagon")s='<polygon points="25,7 75,7 97,50 75,93 25,93 3,50"';return `<svg viewBox="0 0 100 100" role="img" aria-label="${kind}">${s} fill="${color}" stroke="#38568a" stroke-width="3"/></svg>`}
+function shapeCard(sh,small=false){return `<div class="shape-chip"><div class="shape">${svgShape(sh.kind,sh.color)}</div><b>${sh.name}</b>${small?"":`<div style="font-size:.88rem;color:#607493;margin-top:5px">${sh.sides===0?"Tanpa sisi lurus":sh.sides+" sisi"}</div>`}</div>`}
+const quiz=[
+["Bangun datar yang memiliki 3 sisi adalah ...",["Persegi","Segitiga","Lingkaran","Segilima"],1,"Segitiga memiliki 3 sisi."],
+["Bangun datar yang semua sisinya sama panjang dan memiliki 4 sudut adalah ...",["Persegi","Persegi panjang","Lingkaran","Segienam"],0,"Persegi memiliki 4 sisi sama panjang."],
+["Bentuk roda sepeda menyerupai ...",["Segitiga","Persegi","Lingkaran","Segilima"],2,"Roda berbentuk lingkaran."],
+["Persegi panjang memiliki ...",["3 sisi","4 sisi","5 sisi","6 sisi"],1,"Persegi panjang memiliki 4 sisi."],
+["Bangun datar yang memiliki 5 sisi disebut ...",["Segitiga","Segilima","Segienam","Persegi"],1,"Segilima memiliki 5 sisi."],
+["Bentuk ubin lantai yang sama panjang setiap sisinya biasanya menyerupai ...",["Persegi","Lingkaran","Segitiga","Segilima"],0,"Persegi mempunyai 4 sisi sama panjang."],
+["Bangun datar yang tidak memiliki titik sudut adalah ...",["Segitiga","Persegi","Lingkaran","Segilima"],2,"Lingkaran tidak memiliki titik sudut."],
+["Segienam mempunyai ... sisi.",["4","5","6","7"],2,"Awalan 'segi-enam' menunjukkan enam sisi."],
+["Pintu berbentuk persegi panjang. Berapa jumlah sisinya?",["2","3","4","5"],2,"Persegi panjang mempunyai 4 sisi."],
+["Manakah yang termasuk bangun datar?",["Bola","Kubus","Segitiga","Tabung"],2,"Segitiga adalah bangun datar."]
+];
+const pages=[
+{type:"cover"},
+{title:"Selamat Datang, Detektif Geometri!",body:"Hari ini kita akan mencari dan mengenali berbagai bentuk di sekitar kita. Siapkan mata yang jeli dan semangatmu!",fact:"Misi kita: mengenali nama, ciri-ciri, dan jumlah sisi bangun datar."},
+{title:"Tujuan Petualangan",body:"Setelah belajar, kamu diharapkan dapat:",list:["Menyebutkan nama beberapa bangun datar.","Membedakan bangun segibanyak dan bukan segibanyak.","Menjelaskan ciri-ciri bangun datar sederhana.","Menentukan jumlah sisi pada bangun datar."]},
+{title:"Apa Itu Bangun Datar?",body:"Bangun datar adalah bentuk dua dimensi yang dapat kita gambar pada permukaan kertas. Bangun datar memiliki bentuk dan ciri-ciri yang berbeda.",fact:"Ayo amati bentuk-bentuk di sekelilingmu!"},
+{title:"Kenalan dengan Segitiga",shape:"Segitiga",body:"Segitiga memiliki 3 sisi dan 3 titik sudut. Bentuknya dapat terlihat pada beberapa rambu lalu lintas.",example:"Contoh di sekitar kita: rambu peringatan."},
+{title:"Kenalan dengan Persegi",shape:"Persegi",body:"Persegi memiliki 4 sisi sama panjang dan 4 titik sudut.",example:"Contoh di sekitar kita: ubin lantai berbentuk persegi."},
+{title:"Kenalan dengan Persegi Panjang",shape:"Persegi panjang",body:"Persegi panjang memiliki 4 sisi dan 4 titik sudut. Sisi yang berhadapan sama panjang.",example:"Contoh di sekitar kita: pintu dan sampul buku."},
+{title:"Kenalan dengan Lingkaran",shape:"Lingkaran",body:"Lingkaran berbentuk bundar. Lingkaran tidak memiliki sisi lurus dan tidak memiliki titik sudut.",example:"Contoh di sekitar kita: roda dan jam dinding."},
+{title:"Kenalan dengan Segilima",shape:"Segilima",body:"Segilima memiliki 5 sisi dan 5 titik sudut.",example:"Bentuk segilima dapat kita temukan pada beberapa hiasan."},
+{title:"Kenalan dengan Segienam",shape:"Segienam",body:"Segienam memiliki 6 sisi dan 6 titik sudut.",example:"Contoh bentuk segienam dapat terlihat pada sarang lebah."},
+{title:"Ayo Amati Semua Bentuk!",type:"gallery"},
+{title:"Apa Itu Segibanyak?",body:"Segibanyak adalah bangun datar tertutup yang dibatasi oleh garis-garis lurus. Contohnya segitiga, persegi, persegi panjang, segilima, dan segienam.",fact:"Segibanyak memiliki sisi lurus dan titik sudut."},
+{title:"Bukan Segibanyak",body:"Lingkaran bukan segibanyak karena batasnya berupa garis lengkung, bukan kumpulan garis lurus.",fact:"Ingat: bentuk bundar seperti lingkaran tidak mempunyai sisi lurus."},
+{title:"Kelompokkan Bentuk",type:"classify"},
+{title:"Tantangan Menghitung Sisi",body:"Ayo hitung bersama! Sentuh atau tunjuk setiap sisi pada gambar, lalu sebutkan jumlahnya.",type:"sidegame"},
+{title:"Berburu Bentuk di Sekitar Kita",body:"Temukan benda di rumah atau kelas yang menyerupai bangun datar. Misalnya pintu, jam, ubin, atau rambu.",fact:"Sebutkan nama bendanya dan bentuk yang menyerupainya."},
+{title:"Aktivitas Tusuk Gigi",body:"Bayangkan kamu menyusun tusuk gigi ujung ke ujung. Tiga tusuk gigi dapat membentuk segitiga. Empat tusuk gigi sama panjang dapat membentuk persegi jika disusun dengan tepat.",fact:"Pastikan ujung-ujungnya bertemu sehingga membentuk bangun tertutup."},
+{title:"Aktivitas Plastisin",body:"Gunakan plastisin untuk membuat titik sudut, lalu hubungkan dengan sedotan atau stik kecil sebagai sisi. Buat segitiga dan persegi.",fact:"Hitung sisi dan titik sudut dari bentuk yang kamu buat."},
+{title:"Permainan Cepat Tepat",type:"quick"},
+{title:"Kuis Petualangan",body:"Jawablah 10 pertanyaan berikut. Pilih satu jawaban yang paling tepat. Kamu akan mendapat umpan balik setelah menjawab.",fact:"Setiap jawaban benar bernilai 10 poin.",type:"quizintro"},
+{title:"Evaluasi: Siap Menjawab?",type:"quiz"},
+{title:"Hasil Petualangan",type:"result"},
+{title:"Refleksi Diri",body:"Pikirkan kembali pengalaman belajarmu hari ini.",type:"reflect"},
+{title:"Apa yang Sudah Kamu Pelajari?",body:"Kamu telah mengenal berbagai bangun datar, ciri-cirinya, serta jumlah sisi. Teruslah mengamati bentuk-bentuk di sekitarmu!",fact:"Belajar matematika bisa dilakukan sambil bermain dan mengamati."},
+{title:"Misi Selesai!",body:"Hebat! Kamu telah menyelesaikan Petualangan Seru Mengenal Bangun Datar. Terus semangat menjadi Detektif Geometri!",fact:"Terima kasih sudah belajar bersama. Sampai jumpa di petualangan berikutnya!"},
+{title:"Kembali ke Awal",body:"Kamu dapat mengulangi petualangan kapan saja untuk berlatih lagi.",type:"finish"}
+];
+let page=0,score=0,qIndex=0,answered=false,answers=[],selected=null,matched=[],reflect="";
+const content=document.getElementById("content");
+function go(n){page=Math.max(0,Math.min(24,n));render()}
+function nav(){return `<div class="actions"><button class="btn secondary" onclick="go(0)">⌂ HOME</button><span class="spacer"></span><button class="btn secondary" onclick="go(${Math.max(0,page-1)})">← KEMBALI</button><button class="btn" onclick="go(${Math.min(24,page+1)})">LANJUT →</button></div>`}
+function render(){document.getElementById("counter").textContent=`Layar ${page+1} / 25`;document.getElementById("bar").style.width=((page+1)/25*100)+"%";let p=pages[page];let html="";
+if(page===0){html=`<div class="hero"><div><span class="kicker">MISI DIMULAI!</span><h1>PETUALANGAN SERU MENGENAL BANGUN DATAR</h1><div class="subtitle">Matematika Kelas 2 Sekolah Dasar</div><div class="callout lead">Ayo jelajahi dunia bentuk bersama kami! 🌈</div><button class="btn" onclick="go(1)">MULAI PETUALANGAN →</button></div><div><div class="kids"><div class="kid"><div class="head"></div><div class="body"></div><div class="legs"><i></i><i></i></div></div><div class="kid"><div class="head"></div><div class="body"></div><div class="legs"><i></i><i></i></div></div></div><div class="shape-row">${shapeCard(shapes[0],true)}${shapeCard(shapes[1],true)}${shapeCard(shapes[3],true)}</div></div></div><div class="actions"><button class="btn secondary" onclick="go(0)">⌂ HOME</button><span class="spacer"></span><button class="btn" onclick="go(1)">MULAI PETUALANGAN →</button></div>`}
+else if(p.type==="gallery"){html=`<span class="kicker">GALERI BENTUK</span><h2>${p.title}</h2><p>Perhatikan nama dan jumlah sisi setiap bangun datar.</p><div class="card-grid">${shapes.map(s=>`<div class="card">${shapeCard(s)}<p>${s.desc}</p></div>`).join("")}</div>${nav()}`}
+else if(p.type==="classify"){html=`<span class="kicker">AKTIVITAS INTERAKTIF</span><h2>${p.title}</h2><p>Klik kelompok yang tepat untuk setiap bentuk.</p><div class="card-grid">${shapes.map(s=>`<div class="card"><div class="shape">${svgShape(s.kind,s.color)}</div><b>${s.name}</b><div class="actions"><button class="btn small" onclick="classify('${s.name}',${s.sides===0})">Pilih kelompok</button></div></div>`).join("")}</div><div id="classFeedback" class="feedback">Kelompokkan menjadi segibanyak atau bukan segibanyak.</div>${nav()}`}
+else if(p.type==="sidegame"){html=`<span class="kicker">HITUNG SISI</span><h2>${p.title}</h2><div class="card-grid">${shapes.slice(0,5).map(s=>`<div class="card"><div class="shape">${svgShape(s.kind,s.color)}</div><b>${s.name}</b><div class="actions"><button class="btn small" onclick="sideAnswer('${s.name}',${s.sides})">Berapa sisinya?</button></div></div>`).join("")}</div><div id="sideFeedback" class="feedback">Pilih bentuk untuk melihat jumlah sisinya.</div>${nav()}`}
+else if(p.type==="quick"){html=`<span class="kicker">CEPAT TEPAT</span><h2>${p.title}</h2><p>Pilih jawaban yang benar.</p><div class="options">${["3 sisi","4 sisi","5 sisi","6 sisi"].map((x,i)=>`<button class="option" onclick="quick(${i})">${x}</button>`).join("")}</div><div id="quickFeedback" class="feedback">Berapa sisi yang dimiliki segilima?</div>${nav()}`}
+else if(p.type==="quizintro"){html=`<span class="kicker">EVALUASI</span><h2>${p.title}</h2><p>${p.body}</p><div class="fact">${p.fact}</div><div class="callout">Pastikan kamu membaca setiap pertanyaan dengan teliti.</div><div class="actions"><button class="btn" onclick="startQuiz()">MULAI KUIS →</button></div>${nav()}`}
+else if(p.type==="quiz"){html=quizPage()}
+else if(p.type==="result"){html=`<span class="kicker">HASIL EVALUASI</span><h2>${p.title}</h2><div class="card" style="text-align:center"><div style="font-size:4rem">🏆</div><div style="font-size:3.5rem;font-weight:900;color:var(--purple)">${score}</div><h3>dari 100 poin</h3><p>${score>=80?"Luar biasa! Kamu detektif geometri hebat!":score>=60?"Bagus! Terus berlatih agar semakin hebat.":"Tetap semangat! Ayo pelajari kembali materinya dan coba lagi."}</p></div><div class="actions"><button class="btn secondary" onclick="go(20)">ULANGI KUIS</button><span class="spacer"></span><button class="btn" onclick="go(22)">LANJUT →</button></div>`}
+else if(p.type==="reflect"){html=`<span class="kicker">REFLEKSI DIRI</span><h2>${p.title}</h2><p>${p.body}</p><div class="callout"><p>1. Bangun datar apa yang paling mudah kamu kenali?</p><input type="text" id="r1" placeholder="Tulis jawabanmu..." value="${reflect}"><p>2. Bagian mana yang paling kamu sukai?</p><div class="options"><button class="option" onclick="reflectPick('Belajar materi')">Belajar materi</button><button class="option" onclick="reflectPick('Permainan')">Permainan</button><button class="option" onclick="reflectPick('Kuis')">Kuis</button><button class="option" onclick="reflectPick('Aktivitas membuat bentuk')">Membuat bentuk</button></div><div id="reflectFeedback"></div></div>${nav()}`}
+else if(p.type==="finish"){html=`<span class="kicker">SAMPAI JUMPA</span><h2>${p.title}</h2><p>${p.body}</p><div class="fact">${p.fact}</div><div class="actions"><button class="btn" onclick="resetAll()">ULANGI PETUALANGAN ↻</button></div>`}
+else{let sh=p.shape?shapes.find(s=>s.name===p.shape):null;html=`<span class="kicker">MATERI PEMBELAJARAN</span><h2>${p.title}</h2>${sh?`<div class="hero"><div><p class="lead">${p.body}</p><div class="fact">${sh.desc}</div><p>${p.example}</p></div><div class="card" style="text-align:center"><div class="shape" style="width:180px;height:180px">${svgShape(sh.kind,sh.color)}</div><h3>${sh.name}</h3><b>${sh.sides===0?"Tidak memiliki sisi lurus":sh.sides+" sisi dan "+sh.sides+" titik sudut"}</b></div></div>`:`<p class="lead">${p.body}</p>${p.list?`<ul class="list">${p.list.map(x=>`<li>${x}</li>`).join("")}</ul>`:""}${p.fact?`<div class="fact">💡 ${p.fact}</div>`:""}`}${nav()}`}
+content.innerHTML=html}
+function classify(name,isCircle){let el=document.getElementById("classFeedback");el.className="feedback "+(isCircle?"good":"good");el.textContent=isCircle?name+" tepat! Lingkaran bukan segibanyak karena memiliki garis lengkung.":name+" tepat! Bangun ini termasuk segibanyak karena dibatasi garis lurus."}
+function sideAnswer(name,n){let el=document.getElementById("sideFeedback");el.className="feedback good";el.textContent=n===0?name+" tidak memiliki sisi lurus.":name+" memiliki "+n+" sisi. Hebat, sudah menghitung!"}
+function quick(i){let el=document.getElementById("quickFeedback");let ok=i===2;el.className="feedback "+(ok?"good":"bad");el.textContent=ok?"Benar! Segilima memiliki 5 sisi.":"Belum tepat. Coba ingat: segilima memiliki lima sisi."}
+function startQuiz(){score=0;qIndex=0;answers=[];answered=false;go(20)}
+function quizPage(){let q=quiz[qIndex];return `<span class="kicker">SOAL ${qIndex+1} DARI 10</span><h2>${q[0]}</h2><div class="options">${q[1].map((a,i)=>`<button class="option" ${answered?"disabled":""} onclick="answer(${i})">${String.fromCharCode(65+i)}. ${a}</button>`).join("")}</div><div id="qFeedback">${answered?`<div class="feedback ${answers[qIndex]===q[2]?"good":"bad"}">${answers[qIndex]===q[2]?"Benar! ":"Belum tepat. "}${q[3]}</div>`:""}</div><div class="actions">${qIndex>0?`<button class="btn secondary" onclick="prevQ()">← SOAL SEBELUMNYA</button>`:""}<span class="spacer"></span><button class="btn" ${!answered?"disabled style='opacity:.5;cursor:not-allowed'":""} onclick="nextQ()">${qIndex===9?"LIHAT HASIL":"SOAL BERIKUTNYA →"}</button></div>`}
+function answer(i){if(answered)return;answered=true;answers[qIndex]=i;if(i===quiz[qIndex][2])score+=10;render()}
+function nextQ(){if(!answered)return;if(qIndex<9){qIndex++;answered=answers[qIndex]!==undefined;render()}else go(21)}
+function prevQ(){if(qIndex>0){qIndex--;answered=answers[qIndex]!==undefined;render()}}
+function reflectPick(v){let el=document.getElementById("reflectFeedback");el.className="feedback good";el.textContent="Terima kasih sudah berbagi: "+v+"."}
+function resetAll(){page=0;score=0;qIndex=0;answers=[];answered=false;render()}
+render();
+</script>
+</body>
+</html>
